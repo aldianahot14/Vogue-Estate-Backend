@@ -14,6 +14,29 @@ from pathlib import Path
 # Configuration for simple JWT
 from datetime import timedelta
 
+import environ  
+import dj_database_url
+import django_heroku
+
+env = environ.Env()
+environ.Env.read_env()
+
+
+# These are required
+DATABASE_URL=env('DATABASE_URL')
+SECRET_KEY=env('SECRET_KEY')
+
+# These are not required.
+# If you want to connect locally to the database you may need them
+# Something to be aware of, nothing more.
+
+# PGDATABASE=env('PGDATABASE')
+# PGHOST=env('PGHOST')
+# PGPASSWORD=env('PGPASSWORD')
+# PGPORT=env('PGPORT')
+# PGUSER=env('PGUSER')
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +50,12 @@ SECRET_KEY = 'django-insecure-c_6_0dhl^g4=*q@tzq8^x5rpl6v@+mj&qf(_unfp+_tmql^jt6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+
+
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
@@ -58,6 +86,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -93,15 +122,21 @@ WSGI_APPLICATION = 'vogue_estates_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vogue_estates_db',
-        # 'HOST': 'localhost',  <-- (optional) some computers might need this line
-        # 'USER': 'vogue_estates_admin',
-        # 'PASSWORD': 'password', 
-        # 'PORT': 3000 <-- if you desire to use a port other than 8000, you can change that here to any valid port id, some number between 1 and 65535 that isn't in use by some other process on your machine. The reason for this port number range is because of how TCP/IP works, a TCP/IP protocol network(the most widely used protocol used on the web) allocated 16 bits for port numbers. This means that number must be greater than 0 and less than 2^15 -1. 
-    }
+    'default': 
+        dj_database_url.config('DATABASE_URL')
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'vogue_estates_db',
+#         # 'HOST': 'localhost',  <-- (optional) some computers might need this line
+#         # 'USER': 'vogue_estates_admin',
+#         # 'PASSWORD': 'password', 
+#         # 'PORT': 3000 <-- if you desire to use a port other than 8000, you can change that here to any valid port id, some number between 1 and 65535 that isn't in use by some other process on your machine. The reason for this port number range is because of how TCP/IP works, a TCP/IP protocol network(the most widely used protocol used on the web) allocated 16 bits for port numbers. This means that number must be greater than 0 and less than 2^15 -1. 
+#     }
+# }
+
 
 
 # Password validation
@@ -162,3 +197,9 @@ SIMPLE_JWT = {
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
+
+
+# Add this to the very bottom of your settings.py file
+# If you don't your app will not deploy properly
+django_heroku.settings(locals())
+
