@@ -13,7 +13,7 @@ class Home(APIView):
     
 class AgentList(generics.ListCreateAPIView):
     queryset= Agent.objects.all()
-    serializer_classs= AgentSerializer
+    serializer_class= AgentSerializer
 
 class AgentDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset= Agent.objects.all()
@@ -63,7 +63,7 @@ class ClientList(generics.ListCreateAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     
-    
+
 
 class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset= Client.objects.all()
