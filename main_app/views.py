@@ -1,7 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
 from rest_framework import generics, status, permissions # modify these imports to match
-from .models import Agent, Client, Listing
+from .models import Agent, Client, Listing, ListingImage
 from .serialzers import AgentSerializer, ClientSerializer, AgentListingsSerializer, ListingSerializer, UserSerializer
 
 # include the following imports
@@ -10,7 +11,6 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 from rest_framework.exceptions import PermissionDenied # include this additional import
-
 
 
 # Create your views here.
@@ -75,10 +75,17 @@ class AgentListingsList(generics.ListCreateAPIView):
         agent_id= self.kwargs['agent_id']
         return Listing.objects.filter(agent_id=agent_id)
     
-    def perform_create(self, serializer):
-        agent_id = self.kwargs['agent_id']
-        agent = Agent.objects.get(id=agent_id)
-        serializer.save(agent=agent)
+    # def perform_create(self, serializer):
+    #     agent_id = self.kwargs['agent_id']
+    #     agent = Agent.objects.get(id=agent_id)
+    #     listing = serializer.save(agent=agent)
+
+
+    #     images_data = self.request.data.get('images')
+    #     for image_data in images_data:
+    #         ListingImage.objects.create(property=listing, image=image_data['image'])
+
+
 
 class AgentListingsDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AgentListingsSerializer

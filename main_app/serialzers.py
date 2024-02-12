@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Client, Agent, Listing
+
+from .models import Client, Agent, Listing, ListingImage
 from django.contrib.auth.models import User 
 
 
@@ -20,11 +21,31 @@ class UserSerializer(serializers.ModelSerializer):
       
       return user
 
+
+
+class ListingImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ListingImage
+        fields = ['image']
+
+
 class AgentListingsSerializer(serializers.ModelSerializer):
+    images = ListingImageSerializer(many=True)
+
     class Meta:
         model = Listing
         fields = '__all__'
 
+    def create(self, validated_data):
+        images_data = validated_data.pop('images', [])  # Extract images data
+        listing = Listing.objects.create(**validated_data)  # Create Listing instance
+        for image_data in images_data:
+            ListingImage.objects.create(property=listing, **image_data)  # Create ListingImage instances
+        return listing
+
+
+
+        
 class AgentSerializer(serializers.ModelSerializer):
     # this needs to be defined in the Agent model
     has_listing = serializers.SerializerMethodField()
@@ -36,6 +57,8 @@ class AgentSerializer(serializers.ModelSerializer):
     
     def get_has_listing(self, obj):
         return obj.has_listing()
+    
+
 
 # added this so you can see all listings 
 class ListingSerializer(serializers.ModelSerializer):
