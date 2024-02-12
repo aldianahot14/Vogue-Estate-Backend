@@ -2,6 +2,18 @@ from django.db import models
 
 # Create your models here.
 
+
+class Agent(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+   
+    def __str__(self):
+        return self.name
+    
+    def has_listing(self):
+        return self.listings.exists()
+
 class Listing(models.Model):
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
@@ -12,6 +24,8 @@ class Listing(models.Model):
     bedrooms = models.PositiveIntegerField()
     bathrooms = models.PositiveIntegerField()
     sqft = models.PositiveIntegerField()
+    agent = models.ForeignKey(Agent, related_name='listings', on_delete=models.CASCADE)
+
 
 def __str__(self):
         return f"{self.address}, {self.city}, {self.state} {self.zipcode}"
@@ -23,13 +37,6 @@ class ListingImage(models.Model):
     def __str__(self):
         return f"Image for {self.property}"
 
-class Agent(models.Model):
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
-   
-    def __str__(self):
-        return self.name
 
 class Client(models.Model):
     name = models.CharField(max_length=255)
@@ -38,4 +45,3 @@ class Client(models.Model):
 
     def __str__(self):
         return self.name
-

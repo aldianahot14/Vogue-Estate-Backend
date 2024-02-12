@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from .models import Client, Agent, Listing
 
-class AgentListingsSerializer(serializers.HyperlinkedModelSerializer):
+class AgentListingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Listing
         fields = '__all__'
 
-class AgentSerializer(serializers.HyperlinkedModelSerializer):
+class AgentSerializer(serializers.ModelSerializer):
     # this needs to be defined in the Agent model
     has_listing = serializers.SerializerMethodField()
     listings = AgentListingsSerializer(many=True, read_only=True)
@@ -18,12 +18,12 @@ class AgentSerializer(serializers.HyperlinkedModelSerializer):
         return obj.has_listing()
 
 # added this so you can see all listings 
-class ListingSerializer(serializers.HyperlinkedModelSerializer):
+class ListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Listing
         fields = '__all__'
 
-class ClientSerializer(serializers.HyperlinkedModelSerializer):
+class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = '__all__'
