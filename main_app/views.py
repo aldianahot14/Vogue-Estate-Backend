@@ -52,7 +52,7 @@ class AgentListingsDetails(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
     def get_queryset(self):
-        agent_id = self.kwargs['agent_id']
+        agent_id = self.kwargs['id']
         return Listing.objects.filter(agent_id = agent_id)
     
 class ListingList(generics.ListAPIView):
