@@ -9,6 +9,6 @@ urlpatterns = [
     path('agentlistingdetails/<int:id>/', AgentListingsDetails.as_view(), name='agent-listing-details'),
     path('listinglist/', ListingList.as_view(), name='listing-list'),
     path('clientlist/', ClientList.as_view(), name='client-list'),
-    path('clientdetail/', ClientDetail.as_view(), name='client-detail'),
+    path('clientdetail/<int:id>/', ClientDetail.as_view(), name='client-detail'),
     
 ]
