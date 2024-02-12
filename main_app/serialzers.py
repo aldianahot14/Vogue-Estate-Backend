@@ -1,4 +1,4 @@
-from rest_fromework import serializers
+from rest_framework import serializers
 from .models import Client, Agent, Listing
 
 class AgentListingsSerializer(serializers.HyperlinkedModelSerializer):
