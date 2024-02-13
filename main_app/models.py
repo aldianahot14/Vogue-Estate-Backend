@@ -8,6 +8,7 @@ class Agent(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
+    license = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
    
@@ -23,7 +24,7 @@ class Listing(models.Model):
     state = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=20)
     description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.PositiveIntegerField()
     bedrooms = models.PositiveIntegerField()
     bathrooms = models.PositiveIntegerField()
     sqft = models.PositiveIntegerField()
