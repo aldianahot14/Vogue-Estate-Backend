@@ -30,6 +30,8 @@ SECRET_KEY=env('SECRET_KEY')
 # If you want to connect locally to the database you may need them
 # Something to be aware of, nothing more.
 
+# these are the env for running the server localy ensure you .env has the needed information
+
 # PGDATABASE=env('PGDATABASE')
 # PGHOST=env('PGHOST')
 # PGPASSWORD=env('PGPASSWORD')
@@ -117,17 +119,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vogue_estates_project.wsgi.application'
 
-# these are the env for running the server localy ensure you .env has the needed information
-
-# SECRET_KEY=env('SECRET_KEY')
-
-# PGDATABASE=env('PGDATABASE')
-# PGHOST=env('PGHOST')
-# PGPASSWORD=env('PGPASSWORD')
-# PGPORT=env('PGPORT')
-# PGUSER=env('PGUSER')
-# DATABASE_URL=env('DATABASE_URL')
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -151,20 +142,6 @@ DATABASES = {
 #         'PORT': PGPORT,
 #     }
 # }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'PGDATABASE', 
-#         # <-- (optional) some computers might need this line
-#         'HOST': 'localhost', 
-#         'USER': 'vogue_estates_admin',
-#         'PASSWORD': 'password', 
-#         'PORT': 3000
-#         #   <-- if you desire to use a port other than 8000, you can change that here to any valid port id, some number between 1 and 65535 that isn't in use by some other process on your machine. The reason for this port number range is because of how TCP/IP works, a TCP/IP protocol network(the most widely used protocol used on the web) allocated 16 bits for port numbers. This means that number must be greater than 0 and less than 2^15 -1. 
-#     }
-# }
-
 
 
 # Password validation
