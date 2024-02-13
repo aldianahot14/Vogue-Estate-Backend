@@ -117,6 +117,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vogue_estates_project.wsgi.application'
 
+# these are the env for running the server localy ensure you .env has the needed information
+
 SECRET_KEY=env('SECRET_KEY')
 
 PGDATABASE=env('PGDATABASE')
@@ -130,10 +132,25 @@ DATABASE_URL=env('DATABASE_URL')
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# comment this in for heroku deployment 
+
 DATABASES = {
     'default': 
         dj_database_url.config('DATABASE_URL')
 }
+
+# for local use of server (create a super user or other such thing) comment this in, ensure you have a .env 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': PGDATABASE,
+#         'USER': PGUSER,
+#         'PASSWORD': PGPASSWORD,
+#         'HOST': PGHOST,
+#         'PORT': PGPORT,
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -148,16 +165,6 @@ DATABASES = {
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': PGDATABASE,
-#         'USER': PGUSER,
-#         'PASSWORD': PGPASSWORD,
-#         'HOST': PGHOST,
-#         'PORT': PGPORT,
-#     }
-# }
 
 
 # Password validation
