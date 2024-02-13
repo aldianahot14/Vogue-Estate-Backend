@@ -15,7 +15,5 @@ urlpatterns = [
     path('users/token/refresh/', VerifyUserView.as_view(), name='token_refresh'),
     path('agents/token/refresh/', VerifyAgentView.as_view(), name='token_refresh'),
     path('agents/register/', CreateAgentView.as_view(), name='register'),
-    path('agents/login/', LoginAgentView.as_view(), name='login'),
-    
-    
+    path('agents/login/', LoginAgentView.as_view(), name='login'), 
 ]
