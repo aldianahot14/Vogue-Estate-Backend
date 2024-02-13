@@ -119,14 +119,14 @@ WSGI_APPLICATION = 'vogue_estates_project.wsgi.application'
 
 # these are the env for running the server localy ensure you .env has the needed information
 
-SECRET_KEY=env('SECRET_KEY')
+# SECRET_KEY=env('SECRET_KEY')
 
-PGDATABASE=env('PGDATABASE')
-PGHOST=env('PGHOST')
-PGPASSWORD=env('PGPASSWORD')
-PGPORT=env('PGPORT')
-PGUSER=env('PGUSER')
-DATABASE_URL=env('DATABASE_URL')
+# PGDATABASE=env('PGDATABASE')
+# PGHOST=env('PGHOST')
+# PGPASSWORD=env('PGPASSWORD')
+# PGPORT=env('PGPORT')
+# PGUSER=env('PGUSER')
+# DATABASE_URL=env('DATABASE_URL')
 
 
 # Database
