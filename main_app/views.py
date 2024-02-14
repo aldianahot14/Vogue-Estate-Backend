@@ -32,6 +32,9 @@ class AgentList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         # This associates the newly created cat with the logged-in user
         serializer.save(user=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save()
+    
 
 
 class AgentDetails(generics.RetrieveUpdateDestroyAPIView):
@@ -148,6 +151,20 @@ class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
             if instance.user != self.request.user:
                 raise PermissionDenied({"message": "You do not have permission to delete this profile."})
             instance.delete()
+
+class CreateClientView(generics.CreateAPIView):
+  queryset = User.objects.all()
+  serializer_class = UserSerializer
+
+  def create(self, request, *args, **kwargs):
+    response = super().create(request, *args, **kwargs)
+    user = User.objects.get(username=response.data['username'])
+    refresh = RefreshToken.for_user(user)
+    return Response({
+      'refresh': str(refresh),
+      'access': str(refresh.access_token),
+      'user': response.data
+    })
 
 
     

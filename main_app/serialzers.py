@@ -50,10 +50,17 @@ class AgentSerializer(serializers.ModelSerializer):
     # this needs to be defined in the Agent model
     has_listing = serializers.SerializerMethodField()
     listings = AgentListingsSerializer(many=True, read_only=True)
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    # user = serializers.PrimaryKeyRelatedField(read_only=True)
+    user = UserSerializer(required=True)
     class Meta:
         model = Agent
         fields = '__all__'
+    
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = UserSerializer.create(UserSerializer(), validated_data=user_data)
+        agent, created = Agent.objects.update_or_create(user=user, **validated_data)
+        return agent
     
     def get_has_listing(self, obj):
         return obj.has_listing()
@@ -67,10 +74,17 @@ class ListingSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ClientSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    # user = serializers.PrimaryKeyRelatedField(read_only=True)
+    user = UserSerializer(required=True)
     class Meta:
         model = Client
         fields = '__all__'
+
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        user = UserSerializer.create(UserSerializer(), validated_data=user_data)
+        client, created = Client.objects.update_or_create(user=user, **validated_data)
+        return client
 
 # will add in user last so we don't have to add auth yet and can easily test using the local host
 
