@@ -1,0 +1,80 @@
+[
+    {
+        "first_name": "Alex",
+        "last_name": "Johnson",
+        "username": "alexjohnson",
+        "email": "alex@example.com",
+        "password": "alexpassword123",
+        "is_staff": false,
+        "is_active": true,
+        "is_superuser": false,
+        "date_joined": "2024-02-13 17:31:20"
+    },
+    {
+        "first_name": "Jamie",
+        "last_name": "Smith",
+        "username": "jamiesmith",
+        "email": "jamie@example.com",
+        "password": "jamiepassword123",
+        "is_staff": false,
+        "is_active": true,
+        "is_superuser": false,
+        "date_joined": "2024-02-14 10:00:00"
+    },
+    {
+        "first_name": "Chris",
+        "last_name": "Lee",
+        "username": "chrislee",
+        "email": "chris@example.com",
+        "password": "chrispassword123",
+        "is_staff": false,
+        "is_active": true,
+        "is_superuser": false,
+        "date_joined": "2024-02-15 08:30:00"
+    },
+    {
+        "first_name": "Jordan",
+        "last_name": "Brown",
+        "username": "jordanbrown",
+        "email": "jordan@example.com",
+        "password": "jordanpassword123",
+        "is_staff": false,
+        "is_active": true,
+        "is_superuser": false,
+        "date_joined": "2024-02-15 09:15:00"
+    },
+    {
+        "first_name": "Morgan",
+        "last_name": "Davis",
+        "username": "morgandavis",
+        "email": "morgan@example.com",
+        "password": "morganpassword123",
+        "is_staff": false,
+        "is_active": true,
+        "is_superuser": false,
+        "date_joined": "2024-02-15 10:00:00"
+    },
+    {
+        "first_name": "Taylor",
+        "last_name": "Wilson",
+        "username": "taylorwilson",
+        "email": "taylor@example.com",
+        "password": "taylorpassword123",
+        "is_staff": false,
+        "is_active": true,
+        "is_superuser": false,
+        "date_joined": "2024-02-16 11:20:00"
+    },
+    {
+        "first_name": "Casey",
+        "last_name": "Martin",
+        "username": "caseymartin",
+        "email": "casey@example.com",
+        "password": "caseypassword123",
+        "is_staff": false,
+        "is_active": true,
+        "is_superuser": false,
+        "date_joined": "2024-02-16 12:45:00"
+    }
+
+]

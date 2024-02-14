@@ -1,0 +1,62 @@
+[
+    {
+        "listing_id": 1,
+        "image_url": "https://example.com/image2.jpg"
+    },
+    {
+        "listing_id": 2,
+        "image_url": "https://example.com/image3.jpg"
+    },
+    {
+        "listing_id": 3,
+        "image_url": "https://example.com/image2.jpg"
+    },
+    {
+        "listing_id": 4,
+        "image_url": "https://example.com/image3.jpg"
+    },
+    {
+        "listing_id": 5,
+        "image_url": "https://example.com/image4.jpg"
+    },
+    {
+        "listing_id": 6,
+        "image_url": "https://example.com/image1.jpg"
+    },
+    {
+        "listing_id": 7,
+        "image_url": "https://example.com/image5.jpg"
+    },
+    {
+        "listing_id": 8,
+        "image_url": "https://example.com/image4.jpg"
+    },
+    {
+        "listing_id": 9,
+        "image_url": "https://example.com/image3.jpg"
+    },
+    {
+        "listing_id": 10,
+        "image_url": "https://example.com/image3.jpg"
+    },
+    {
+        "listing_id": 11,
+        "image_url": "https://example.com/image4.jpg"
+    },
+    {
+        "listing_id": 12,
+        "image_url": "https://example.com/image4.jpg"
+    },
+    {
+        "listing_id": 13,
+        "image_url": "https://example.com/image1.jpg"
+    },
+    {
+        "listing_id": 14,
+        "image_url": "https://example.com/image3.jpg"
+    },
+    {
+        "listing_id": 15,
+        "image_url": "https://example.com/image4.jpg"
+    }
+]
