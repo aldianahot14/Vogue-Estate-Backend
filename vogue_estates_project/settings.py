@@ -32,11 +32,11 @@ SECRET_KEY=env('SECRET_KEY')
 
 # these are the env for running the server localy ensure you .env has the needed information
 
-# PGDATABASE=env('PGDATABASE')
-# PGHOST=env('PGHOST')
-# PGPASSWORD=env('PGPASSWORD')
-# PGPORT=env('PGPORT')
-# PGUSER=env('PGUSER')
+PGDATABASE=env('PGDATABASE')
+PGHOST=env('PGHOST')
+PGPASSWORD=env('PGPASSWORD')
+PGPORT=env('PGPORT')
+PGUSER=env('PGUSER')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -132,16 +132,16 @@ DATABASES = {
 
 # for local use of server (create a super user or other such thing) comment this in, ensure you have a .env 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': PGDATABASE,
-#         'USER': PGUSER,
-#         'PASSWORD': PGPASSWORD,
-#         'HOST': PGHOST,
-#         'PORT': PGPORT,
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': PGDATABASE,
+        'USER': PGUSER,
+        'PASSWORD': PGPASSWORD,
+        'HOST': PGHOST,
+        'PORT': PGPORT,
+    }
+}
 
 
 # Password validation
