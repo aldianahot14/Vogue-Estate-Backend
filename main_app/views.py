@@ -27,7 +27,7 @@ class AgentList(generics.ListCreateAPIView):
     def get_queryset(self):
       # This ensures we only return cats belonging to the logged-in user
       user = self.request.user
-      return Agent.objects.filter(user=user)
+      return Agent.objects.all()
 
     def perform_create(self, serializer):
         # This associates the newly created cat with the logged-in user
@@ -45,7 +45,7 @@ class AgentDetails(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Agent.objects.filter(user=user)
+        return Agent.objects.all()
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -95,8 +95,7 @@ class AgentListingsDetails(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
     def get_queryset(self):
-        agent_id = self.kwargs['id']
-        return Listing.objects.filter(agent_id = agent_id)
+        return Listing.objects.all()
     
     
 class ListingList(generics.ListAPIView):
@@ -114,7 +113,7 @@ class ClientList(generics.ListCreateAPIView):
     def get_queryset(self):
       # This ensures we only return cats belonging to the logged-in user
       user = self.request.user
-      return Agent.objects.filter(user=user)
+      return Agent.objects.all()
 
     def perform_create(self, serializer):
         # This associates the newly created cat with the logged-in user
@@ -122,6 +121,7 @@ class ClientList(generics.ListCreateAPIView):
     
 
 class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated]
     queryset= Client.objects.all()
     serializer_class = ClientSerializer
     # might change this to username will dicuss with the team
@@ -129,8 +129,8 @@ class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
     def get_queryset(self):
-            user = self.request.user
-            return Client.objects.filter(user=user)
+            # user = self.request.user
+            return Client.objects.all()
 
     def retrieve(self, request, *args, **kwargs):
             instance = self.get_object()
