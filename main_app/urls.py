@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, AgentList, AgentDetails, AgentListingsList, AgentListingsDetails, ListingList, ClientList, ClientDetail, CreateUserView, LoginView, VerifyUserView, CreateAgentView, VerifyAgentView, LoginAgentView
+from .views import Home, AgentList, AgentDetails, AgentListingsList, AgentListingsDetails, ListingList, ClientList, ClientDetail, CreateUserView, LoginView, VerifyUserView, CreateAgentView, VerifyAgentView, LoginAgentView, CreateClientView
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
@@ -16,4 +16,6 @@ urlpatterns = [
     path('agents/token/refresh/', VerifyAgentView.as_view(), name='token_refresh'),
     path('agents/register/', CreateAgentView.as_view(), name='register'),
     path('agents/login/', LoginAgentView.as_view(), name='login'), 
+    path('client/register/', CreateClientView.as_view(), name='register'),
+    
 ]
