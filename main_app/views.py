@@ -78,15 +78,15 @@ class AgentListingsList(generics.ListCreateAPIView):
         agent_id= self.kwargs['agent_id']
         return Listing.objects.filter(agent_id=agent_id)
     
-    # def perform_create(self, serializer):
-    #     agent_id = self.kwargs['agent_id']
-    #     agent = Agent.objects.get(id=agent_id)
-    #     listing = serializer.save(agent=agent)
+    def perform_create(self, serializer):
+        agent_id = self.kwargs['agent_id']
+        agent = Agent.objects.get(id=agent_id)
+        listing = serializer.save(agent=agent)
 
 
-    #     images_data = self.request.data.get('images')
-    #     for image_data in images_data:
-    #         ListingImage.objects.create(property=listing, image=image_data['image'])
+        images_data = self.request.data.get('images')
+        for image_data in images_data:
+            ListingImage.objects.create(property=listing, image=image_data['image'])
 
 
 
