@@ -1,0 +1,37 @@
+[
+    {
+        "username": "agent01",
+        "email": "agent01@example.com",
+        "password": "password01",
+        "name": "Agent One",
+        "license": "LIC001"
+    },
+    {
+        "username": "agent02",
+        "email": "agent02@example.com",
+        "password": "password02",
+        "name": "Agent Two",
+        "license": "LIC002"
+    },
+    {
+        "username": "agent03",
+        "email": "agent03@example.com",
+        "password": "password03",
+        "name": "Agent Three",
+        "license": "LIC003"
+    },
+    {
+        "username": "agent04",
+        "email": "agent04@example.com",
+        "password": "password04",
+        "name": "Agent Four",
+        "license": "LIC004"
+    },
+    {
+        "username": "agent05",
+        "email": "agent05@example.com",
+        "password": "password05",
+        "name": "Agent Five",
+        "license": "LIC005"
+    }
+]
