@@ -3,7 +3,6 @@
 
         "name": "Alex Johnson",
         "email": "alex@example.com",
-        "phone": "123-456-7890",
         "license": "ABC123",
         "user": "alexjohnson"
     },
@@ -11,7 +10,6 @@
 
         "name": "Jamie Smith",
         "email": "jamie@example.com",
-        "phone": "234-567-8901",
         "license": "DEF456",
         "user": "jamiesmith"
     },
@@ -19,7 +17,6 @@
 
         "name": "Chris Lee",
         "email": "chris@example.com",
-        "phone": "345-678-9012",
         "license": "GHI789",
         "user": "chrislee"
     },
@@ -27,7 +24,6 @@
 
         "name": "Jordan Brown",
         "email": "jordan@example.com",
-        "phone": "456-789-0123",
         "license": "JKL012",
         "user": "jordanbrown"
     },
@@ -35,7 +31,6 @@
 
         "name": "Morgan Davis",
         "email": "morgan@example.com",
-        "phone": "567-890-1234",
         "license": "MNO345",
         "user": "morgandavis"
     }

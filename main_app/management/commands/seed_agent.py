@@ -8,7 +8,7 @@ def load_json_data(file_name):
 def generate_insert_for_agents(agents_data, user_ids):
     insert_commands = []
     for agent, user_id in zip(agents_data, user_ids):
-        command = f"INSERT INTO main_app_agent (name, email, phone, license, user_id) VALUES ('{agent['name']}', '{agent['email']}', '{agent['phone']}', '{agent['license']}', {user_id});"
+        command = f"INSERT INTO main_app_agent (name, email, license, user_id) VALUES ('{agent['name']}', '{agent['email']}', '{agent['license']}', {user_id});"
         insert_commands.append(command)
     return insert_commands
 
