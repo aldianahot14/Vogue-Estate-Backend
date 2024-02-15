@@ -59,10 +59,11 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 
-# CORS settings
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Adjust the port if your frontend runs on a different one
-]
+# # CORS settings
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",  # Adjust the port if your frontend runs on a different one
+# ]
+
 
 # CORS_ALLOWED_ORIGINS = ["True",]
 
@@ -89,7 +90,6 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -97,7 +97,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_WHITELIST=[ "http://localhost:3000",]
 
 ROOT_URLCONF = 'vogue_estates_project.urls'
 
