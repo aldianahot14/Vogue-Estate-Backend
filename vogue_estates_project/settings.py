@@ -61,7 +61,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 # # CORS settings
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173", "https://vogue-estates.netlify.app/"  # Adjust the port if your frontend runs on a different one
+    "http://localhost:5173", "https://vogue-estates.netlify.app/",  # Adjust the port if your frontend runs on a different one
 ]
 
 
