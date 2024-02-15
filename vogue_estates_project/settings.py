@@ -100,7 +100,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST=[ "http://localhost:3000",]
+CORS_ORIGIN_WHITELIST=[ "http://localhost:5173",]
 
 ROOT_URLCONF = 'vogue_estates_project.urls'
 
