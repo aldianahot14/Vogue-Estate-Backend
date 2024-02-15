@@ -173,6 +173,29 @@ class CreateClientView(generics.CreateAPIView):
                     'client': client_serializer.data
                 }, status=status.HTTP_201_CREATED)
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
+class LoginClientView(APIView):
+  permission_classes = [permissions.AllowAny]
+
+  def post(self, request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    user = authenticate(username=username, password=password)
+    if user:
+            try:
+                # Query the Client model to get the client associated with the user
+                client = Client.objects.get(user=user)
+            except Client.DoesNotExist:
+                return Response({'error': 'Client not found'}, status=status.HTTP_404_NOT_FOUND)
+
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'user': UserSerializer(user).data,
+                'client': ClientSerializer(client).data  # Serialize the client data
+            })
+    return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
     
@@ -191,6 +214,7 @@ class CreateUserView(generics.CreateAPIView):
       'access': str(refresh.access_token),
       'user': response.data
     })
+    
 
 # User Login
 class LoginView(APIView):
@@ -256,13 +280,20 @@ class LoginAgentView(APIView):
     password = request.data.get('password')
     user = authenticate(username=username, password=password)
     if user:
+      try:
+          agent = Agent.objects.get(user=user)
+      except Agent.DoesNotExist:
+          return Response({'error': 'Client not found'},
+          status=status.HTTP_404_NOT_FOUND)
+      
       refresh = RefreshToken.for_user(user)
       return Response({
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-        'user': UserSerializer(user).data
+          'refersh': str(refresh),
+          'access': str(refresh.access_token),
+          'user': UserSerializer(user).data,
+          'agent': AgentSerializer(agent).data
       })
-    return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+    return Response({'errro': 'Indalid Credentils'}, status=status.HTTP_401_UNAUTHORIZED)
 
 # User Verification
 class VerifyAgentView(APIView):
