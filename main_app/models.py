@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Agent(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=20)
+    # phone = models.CharField(max_length=20)
     license = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -31,7 +31,7 @@ class Listing(models.Model):
     agent = models.ForeignKey(Agent, related_name='listings', on_delete=models.CASCADE)
 
 
-def __str__(self):
+    def __str__(self):
         return f"{self.address}, {self.city}, {self.state} {self.zipcode}"
 
 class ListingImage(models.Model):
@@ -45,7 +45,7 @@ class ListingImage(models.Model):
 class Client(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=20)
+    # phone = models.CharField(max_length=20)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
 
