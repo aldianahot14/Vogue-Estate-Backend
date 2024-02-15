@@ -4,22 +4,20 @@ from .models import Client, Agent, Listing, ListingImage
 from django.contrib.auth.models import User 
 
 
-# include User serializer
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)  # Add a password field, make it write-only
+    password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'password')
     
     def create(self, validated_data):
-      user = User.objects.create_user(
-          username=validated_data['username'],
-          email=validated_data['email'],
-          password=validated_data['password']  # Ensures the password is hashed correctly
-      )
-      
-      return user
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password']
+        )
+        return user
 
 
 
@@ -44,26 +42,23 @@ class AgentListingsSerializer(serializers.ModelSerializer):
         return listing
 
 
-
-        
+    
 class AgentSerializer(serializers.ModelSerializer):
-    # this needs to be defined in the Agent model
     has_listing = serializers.SerializerMethodField()
     listings = AgentListingsSerializer(many=True, read_only=True)
-    # user = serializers.PrimaryKeyRelatedField(read_only=True)
-    user = UserSerializer(required=True)
+
     class Meta:
         model = Agent
         fields = '__all__'
-    
+
     def create(self, validated_data):
-        user_data = validated_data.pop('user')
-        user = UserSerializer.create(UserSerializer(), validated_data=user_data)
-        agent, created = Agent.objects.update_or_create(user=user, **validated_data)
+        # Create Agent instance here
+        agent = Agent.objects.create(**validated_data)
         return agent
-    
+
     def get_has_listing(self, obj):
         return obj.has_listing()
+
     
 
 
@@ -73,18 +68,27 @@ class ListingSerializer(serializers.ModelSerializer):
         model = Listing
         fields = '__all__'
 
+# class ClientSerializer(serializers.ModelSerializer):
+
+#     class Meta:
+#         model = Client
+#         fields = '__all__'
+
+#     def create(self, validated_data):
+#         client = Client.objects.create(**validated_data)
+#         return client
+    
 class ClientSerializer(serializers.ModelSerializer):
-    # user = serializers.PrimaryKeyRelatedField(read_only=True)
-    user = UserSerializer(required=True)
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)
+
     class Meta:
         model = Client
         fields = '__all__'
 
     def create(self, validated_data):
-        user_data = validated_data.pop('user')
-        user = UserSerializer.create(UserSerializer(), validated_data=user_data)
-        client, created = Client.objects.update_or_create(user=user, **validated_data)
+        client = Client.objects.create(**validated_data)
         return client
+
 
 # will add in user last so we don't have to add auth yet and can easily test using the local host
 

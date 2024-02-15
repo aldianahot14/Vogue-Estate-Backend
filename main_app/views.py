@@ -153,18 +153,49 @@ class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
             instance.delete()
 
 class CreateClientView(generics.CreateAPIView):
-  queryset = User.objects.all()
-  serializer_class = UserSerializer
+  queryset = Client.objects.all()
+  serializer_class = ClientSerializer
 
   def create(self, request, *args, **kwargs):
-    response = super().create(request, *args, **kwargs)
-    user = User.objects.get(username=response.data['username'])
-    refresh = RefreshToken.for_user(user)
-    return Response({
-      'refresh': str(refresh),
-      'access': str(refresh.access_token),
-      'user': response.data
-    })
+        user_serializer = UserSerializer(data=request.data)
+        if user_serializer.is_valid(raise_exception=True):
+            user = user_serializer.save()
+            client_data = request.data
+            client_data['user'] = user.id  # Associate the user with the agent
+            client_serializer = ClientSerializer(data=client_data)
+            if client_serializer.is_valid(raise_exception=True):
+                client_serializer.save()
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                    'user': user_serializer.data,
+                    'client': client_serializer.data
+                }, status=status.HTTP_201_CREATED)
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
+class LoginClientView(APIView):
+  permission_classes = [permissions.AllowAny]
+
+  def post(self, request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    user = authenticate(username=username, password=password)
+    if user:
+            try:
+                # Query the Client model to get the client associated with the user
+                client = Client.objects.get(user=user)
+            except Client.DoesNotExist:
+                return Response({'error': 'Client not found'}, status=status.HTTP_404_NOT_FOUND)
+
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'user': UserSerializer(user).data,
+                'client': ClientSerializer(client).data  # Serialize the client data
+            })
+    return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
     
@@ -183,6 +214,7 @@ class CreateUserView(generics.CreateAPIView):
       'access': str(refresh.access_token),
       'user': response.data
     })
+    
 
 # User Login
 class LoginView(APIView):
@@ -218,18 +250,26 @@ class VerifyUserView(APIView):
   # include the registration, login, and verification views below
 # User Registration
 class CreateAgentView(generics.CreateAPIView):
-  queryset = User.objects.all()
-  serializer_class = UserSerializer
+    queryset = Agent.objects.all()
+    serializer_class = AgentSerializer
 
-  def create(self, request, *args, **kwargs):
-    response = super().create(request, *args, **kwargs)
-    user = User.objects.get(username=response.data['username'])
-    refresh = RefreshToken.for_user(user)
-    return Response({
-      'refresh': str(refresh),
-      'access': str(refresh.access_token),
-      'user': response.data
-    })
+    def create(self, request, *args, **kwargs):
+        user_serializer = UserSerializer(data=request.data)
+        if user_serializer.is_valid(raise_exception=True):
+            user = user_serializer.save()
+            agent_data = request.data
+            agent_data['user'] = user.id  # Associate the user with the agent
+            agent_serializer = AgentSerializer(data=agent_data)
+            if agent_serializer.is_valid(raise_exception=True):
+                agent_serializer.save()
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                    'user': user_serializer.data,
+                    'agent': agent_serializer.data
+                }, status=status.HTTP_201_CREATED)
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # User Login
 class LoginAgentView(APIView):
@@ -240,13 +280,20 @@ class LoginAgentView(APIView):
     password = request.data.get('password')
     user = authenticate(username=username, password=password)
     if user:
+      try:
+          agent = Agent.objects.get(user=user)
+      except Agent.DoesNotExist:
+          return Response({'error': 'Client not found'},
+          status=status.HTTP_404_NOT_FOUND)
+      
       refresh = RefreshToken.for_user(user)
       return Response({
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-        'user': UserSerializer(user).data
+          'refersh': str(refresh),
+          'access': str(refresh.access_token),
+          'user': UserSerializer(user).data,
+          'agent': AgentSerializer(agent).data
       })
-    return Response({'error': 'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+    return Response({'errro': 'Indalid Credentils'}, status=status.HTTP_401_UNAUTHORIZED)
 
 # User Verification
 class VerifyAgentView(APIView):
