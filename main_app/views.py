@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 from rest_framework import generics, status, permissions # modify these imports to match
 from .models import Agent, Client, Listing, ListingImage
@@ -71,20 +72,19 @@ class AgentDetails(generics.RetrieveUpdateDestroyAPIView):
         instance.delete()
 
 class AgentListingsList(generics.ListCreateAPIView):
-    serializer_class= AgentListingsSerializer 
+    serializer_class = AgentListingsSerializer 
 
     def get_queryset(self):
-        # might change to agent name will discuss with team perhaps after testing 
-        agent_id= self.kwargs['agent_id']
-        return Listing.objects.filter(agent_id=agent_id)
+        user_id = self.kwargs['user_id']
+        agent = get_object_or_404(Agent, user_id=user_id)
+        return Listing.objects.filter(agent=agent)
     
     def perform_create(self, serializer):
-        agent_id = self.kwargs['agent_id']
-        agent = Agent.objects.get(id=agent_id)
+        user_id = self.kwargs['user_id']
+        agent = get_object_or_404(Agent, user_id=user_id)
         listing = serializer.save(agent=agent)
 
-
-        images_data = self.request.data.get('images')
+        images_data = self.request.data.get('images', [])
         for image_data in images_data:
             ListingImage.objects.create(property=listing, image=image_data['image'])
             
