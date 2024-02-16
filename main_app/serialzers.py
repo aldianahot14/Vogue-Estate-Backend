@@ -86,6 +86,7 @@ class AgentSerializer(serializers.ModelSerializer):
 
 # added this so you can see all listings 
 class ListingSerializer(serializers.ModelSerializer):
+    images = ListingImageSerializer(many=True, read_only=True)
     class Meta:
         model = Listing
         fields = '__all__'
