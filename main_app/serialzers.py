@@ -40,6 +40,28 @@ class AgentListingsSerializer(serializers.ModelSerializer):
         for image_data in images_data:
             ListingImage.objects.create(property=listing, **image_data)  # Create ListingImage instances
         return listing
+    def update(self, instance, validated_data):
+        images_data = validated_data.pop('images', [])
+        
+        # Update listing instance
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+
+        # Handle images
+        for image_data in images_data:
+            image_id = image_data.get('id', None)  # Assuming each image data contains an 'id'
+            if image_id:
+                # Update existing image
+                image_instance = ListingImage.objects.get(id=image_id, property=instance)
+                for image_attr, image_value in image_data.items():
+                    setattr(image_instance, image_attr, image_value)
+                image_instance.save()
+            else:
+                # Create new image
+                ListingImage.objects.create(property=instance, **image_data)
+
+        return instance
 
 
     
