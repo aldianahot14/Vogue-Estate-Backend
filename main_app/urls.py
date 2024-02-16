@@ -29,6 +29,6 @@ urlpatterns = [
     # brings up list of all listings
     path('listinglist/', ListingList.as_view(), name='listing-list'),
     # U G D by id
-    path('listing/<int:id>/', ListingDetails.as_view(), name='listing-list'),
+    path('listing/<int:id>/', ListingDetails.as_view(), name='listing'),
     
 ]
