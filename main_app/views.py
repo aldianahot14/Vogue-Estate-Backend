@@ -87,6 +87,7 @@ class AgentListingsList(generics.ListCreateAPIView):
         images_data = self.request.data.get('images')
         for image_data in images_data:
             ListingImage.objects.create(property=listing, image=image_data['image'])
+            
 
 
 
