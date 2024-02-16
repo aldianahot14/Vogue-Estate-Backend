@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, AgentList, AgentDetails, AgentListingsList, AgentListingsDetails, ListingList, ClientList, ClientDetail, CreateAgentView, VerifyAgentView, LoginAgentView, CreateClientView, LoginClientView
+from .views import Home, AgentList, AgentDetails, AgentListingsList, AgentListingsDetails, ListingList, ClientList, ClientDetail, CreateAgentView, VerifyAgentView, LoginAgentView, CreateClientView, LoginClientView, ListingDetails
 
 urlpatterns = [
     # home
@@ -28,5 +28,7 @@ urlpatterns = [
     path('client/login/', LoginClientView.as_view(), name='register'), 
     # brings up list of all listings
     path('listinglist/', ListingList.as_view(), name='listing-list'),
+    # U G D by id
+    path('listing/<int:id>/', ListingDetails.as_view(), name='listing-list'),
     
 ]
