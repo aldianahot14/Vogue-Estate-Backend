@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import generics, status, permissions # modify these imports to match
 from .models import Agent, Client, Listing, ListingImage
-from .serialzers import AgentSerializer, ClientSerializer, AgentListingsSerializer, ListingSerializer, UserSerializer
+from .serialzers import AgentSerializer, ClientSerializer, AgentListingsSerializer, ListingSerializer, UserSerializer,ListingsSerializer
 
 # include the following imports
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -93,6 +93,13 @@ class AgentListingsList(generics.ListCreateAPIView):
 
 class AgentListingsDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AgentListingsSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        return Listing.objects.all()
+    
+class ListingDetails(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ListingsSerializer
     lookup_field = 'id'
 
     def get_queryset(self):
